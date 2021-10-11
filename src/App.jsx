@@ -42,8 +42,21 @@ const App = () => {
     socket?.emit("command");
   };
 
+  const authData = true //temporary
+
   return (
     <div className={classes.app}>
+      <header className={classes["app__header"]}>
+        <span className={classes['app__header__title']}>Ottanova Challenge</span>
+        {authData && (
+          <span
+            className={classes["app__header--logout"]}
+            onClick={() => localStorage.removeItem("auth")}
+          >
+            Logout
+          </span>
+        )}
+      </header>
       <Router>
         <Switch>
           <Route path="/login" component={Login} />

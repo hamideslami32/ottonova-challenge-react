@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Input, Alert } from "antd";
+import { Button, Input, Alert, Space } from "antd";
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  UserOutlined,
+} from "@ant-design/icons";
 import classes from "./login-form.module.scss";
 const LoginForm = () => {
-
   const history = useHistory();
 
   const [alertType, setAlertType] = useState("info");
@@ -22,15 +26,11 @@ const LoginForm = () => {
 
   const login = () => {
     if (!authData) {
-
       localStorage.setItem("auth", JSON.stringify(loginData));
 
       history.push("/");
-
     } else {
-
       if (authData === loginData) history.push("/");
-
       else {
         setAlertType("error");
         setAlertMessage("Username or password is incorrect");
@@ -44,29 +44,44 @@ const LoginForm = () => {
       <form>
         <div>
           <Input
+            className={classes["login__input"]}
             type="text"
             value={loginData.username}
             placeholder="username"
+            size="large"
+            prefix={<UserOutlined />}
             onChange={(e) =>
               setLoginData({ ...loginData, username: e.target.value })
             }
           />
-          <Input
-            type="password"
+          <Input.Password
+            className={classes["login__input"]}
             value={loginData.password}
             placeholder="password"
+            size="large"
+            iconRender={(visible) =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
             onChange={(e) =>
               setLoginData({ ...loginData, password: e.target.value })
             }
           />
         </div>
-        <Button type="primary" onClick={login}>
+        <Button
+          className={classes["login__button"]}
+          size="large"
+          type="primary"
+          onClick={login}
+        >
           Login
         </Button>
-        {(!authData ||
-          alertType === "error") && (
-            <Alert className={classes['login__alert']} message={alertMessage} type={alertType} />
-          )}
+        {(!authData || alertType === "error") && (
+          <Alert
+            className={classes["login__alert"]}
+            message={alertMessage}
+            type={alertType}
+          />
+        )}
       </form>
     </div>
   );

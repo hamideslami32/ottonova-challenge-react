@@ -5,15 +5,18 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  & > * {
-    margin-bottom: 20px;
+  
+  &__input,
+  &__button {
+    margin-bottom: 20px !important;
   }
 
-  h1 {
+  h1, h2 {
     color: #888;
   }
 
-  .command-title {
+  &__command-type,
+  &__message {
     color: #000;
     text-transform: capitalize;
   }
