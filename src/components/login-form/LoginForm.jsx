@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Input, Alert, Space } from "antd";
+import useAuth from "../../auth/useAuth";
+import { Button, Input, Alert } from "antd";
 import {
   EyeInvisibleOutlined,
   EyeTwoTone,
   UserOutlined,
 } from "@ant-design/icons";
 import classes from "./login-form.module.scss";
+
 const LoginForm = () => {
   const history = useHistory();
 
@@ -15,7 +17,7 @@ const LoginForm = () => {
     "Remember your password. :)"
   );
 
-  const authData = localStorage.getItem("auth");
+  const auth = useAuth();
 
   const initialLoginData = {
     username: "",
@@ -25,17 +27,8 @@ const LoginForm = () => {
   const [loginData, setLoginData] = useState(initialLoginData);
 
   const login = () => {
-    if (!authData) {
-      localStorage.setItem("auth", JSON.stringify(loginData));
-
-      history.push("/");
-    } else {
-      if (authData === loginData) history.push("/");
-      else {
-        setAlertType("error");
-        setAlertMessage("Username or password is incorrect");
-      }
-    }
+    auth.login(loginData);
+    history.push("/");
   };
 
   return (
@@ -75,13 +68,11 @@ const LoginForm = () => {
         >
           Login
         </Button>
-        {(!authData || alertType === "error") && (
-          <Alert
-            className={classes["login__alert"]}
-            message={alertMessage}
-            type={alertType}
-          />
-        )}
+        <Alert
+          className={classes["login__alert"]}
+          message="Remember your password. :)"
+          type="info"
+        />
       </form>
     </div>
   );

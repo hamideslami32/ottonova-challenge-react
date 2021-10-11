@@ -6,11 +6,11 @@ const Map = (props) => {
   const mapData = props.command.data;
   return (
     <>
-      <h3>This is your location? : </h3>
+      <h2>This is your location? : </h2>
       <MapContainer
         className={classes.map}
         center={[mapData.lat, mapData.lng]}
-        zoom={14}
+        zoom={15}
         scrollWheelZoom={false}
         style={{ height: "300px", width: "100%" }}
       >

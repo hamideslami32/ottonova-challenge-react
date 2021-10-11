@@ -13,7 +13,7 @@ const DayPicker = (props) => {
 
   return (
     <div className={classes.dayPicker}>
-      <h3>Please pick a day : </h3>
+      <h2>Please pick a day : </h2>
       {activeDays.map((day) => (
         <Button
           className={classes["dayPicker__button"]}
