@@ -1,3 +1,19 @@
 .app {
-    
+  &__header {
+    padding: 10px;
+    background-color: #282c34;
+    color: white;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &--logout {
+      border: 1px solid #fff;
+      border-radius: 5px;
+    }
+  }
 }
