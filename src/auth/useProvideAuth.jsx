@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useState } from "react";
 const useProvideAuth = () => {
-  const [user, setUser] = useState(localStorage.getItem('auth') || null);
+  const [user, setUser] = useState(
+    localStorage.getItem("auth")
+      ? JSON.parse(localStorage.getItem("auth"))
+      : null
+  );
 
   const login = (userData) => {
-    localStorage.setItem('auth', JSON.stringify(userData));
+    localStorage.setItem("auth", JSON.stringify(userData));
     setUser(userData);
   };
 
   const logout = () => {
-    localStorage.removeItem('auth');
+    localStorage.removeItem("auth");
     setUser(null);
   };
 
