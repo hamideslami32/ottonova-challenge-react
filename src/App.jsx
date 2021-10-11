@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -16,42 +15,6 @@ import classes from "./app.module.scss";
 
 const App = () => {
   const auth = useAuth();
-
-  const [socket, setSocket] = useState(null);
-  const [message, setMessage] = useState("");
-  const [response, setResponse] = useState("");
-  const [command, setCommand] = useState({});
-
-  useEffect(() => {
-    const newSocket = io(`https://demo-chat-server.on.ag/`);
-    console.log({ newSocket });
-    setSocket(newSocket);
-    return () => newSocket.close();
-  }, [setSocket]);
-
-  useEffect(() => {
-    const getData = () => {
-      socket?.on("message", (res) => setResponse(res.message));
-      socket?.on("command", (res) => {
-        setCommand(res.command);
-      });
-    };
-    getData();
-  }, [socket]);
-
-  const sendMessage = (m) => {
-    socket?.emit("message", {
-      author: auth.user.username,
-      message: m,
-    });
-    // if (m === 'Yes') socket.close()
-  };
-
-  const sendCommand = () => {
-    socket?.emit("command");
-  };
-
-  console.log(auth.user)
 
   return (
     <div className={classes.app}>
@@ -74,14 +37,7 @@ const App = () => {
             {!auth.user ? <Login /> : <Redirect to="/" />}
           </Route>
           <PrivateRoute exact path="/">
-            <Home
-              sendCommand={sendCommand}
-              sendMessage={sendMessage}
-              setMessage={setMessage}
-              command={command}
-              response={response}
-              message={message}
-            />
+            <Home />
           </PrivateRoute>
           <Route path="*" render={() => <NotFound />} />
         </Switch>
