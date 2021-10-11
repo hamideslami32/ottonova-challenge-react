@@ -2,18 +2,21 @@
   &__header {
     padding: 10px;
     background-color: #282c34;
-    color: white;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    div {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+    &__title {
+      font-weight: 500;
+      font-size: 18px;
     }
 
     &--logout {
       border: 1px solid #fff;
       border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
     }
   }
 }

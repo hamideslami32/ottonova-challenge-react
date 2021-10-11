@@ -1,3 +1,8 @@
 .map {
     box-shadow: 0 0 5px 1px gray;
+
+    &__button {
+        margin-top: 20px;
+        max-width: 100px;
+    }
 }

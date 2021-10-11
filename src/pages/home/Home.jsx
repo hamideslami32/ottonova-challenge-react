@@ -1,4 +1,4 @@
-import { Button, Divider } from "antd";
+import { Input, Button, Divider } from "antd";
 import CompleteConfirm from "../../components/complete-confirm/CompleteConfirm";
 import Rating from "../../components/rating/Rating";
 import DayPicker from "../../components/day-picker/DayPicker";
@@ -11,16 +11,20 @@ function Home(props) {
     <div className={classes.home}>
       {
         <>
-          <h1 htmlFor="message">Enter Message</h1>
-          <input
+          <h2 htmlFor="message">Enter Message</h2>
+          <Input
             type="text"
+            className={classes["home__input"]}
+            size="large"
             name="message"
             id="message"
             value={props.message}
-            onChange={(e)=> props.setMessage(e.target.value)}
+            onChange={(e) => props.setMessage(e.target.value)}
           />
           <Button
+            className={classes["home__button"]}
             type="primary"
+            size="large"
             onClick={() => {
               props.sendMessage(props.message);
             }}
@@ -28,7 +32,9 @@ function Home(props) {
             Send Message
           </Button>
           <Button
+            className={classes["home__button"]}
             type="primary"
+            size="large"
             onClick={() => {
               props.sendCommand();
             }}
@@ -37,12 +43,14 @@ function Home(props) {
           </Button>
           <h1>
             Message: <br />
-            {props.response && props.response}
+            <span className={classes["home__command-type"]}>
+              {props.response && props.response}
+            </span>
           </h1>
           <Divider />
           <h1>
             Command:{" "}
-            <span className={classes["command-title"]}>
+            <span className={classes["home__command-type"]}>
               {props.command?.type}
             </span>
           </h1>
