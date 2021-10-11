@@ -6,7 +6,7 @@ const CompleteConfirm = (props) => {
 
   return (
     <div className={classes.completeConfirm}>
-      <h3>Do you want to close conversation? : </h3>
+      <h2>Do you want to close conversation? : </h2>
       {answers.map((answer) => (
         <Button
           className={classes["completeConfirm__button"]}

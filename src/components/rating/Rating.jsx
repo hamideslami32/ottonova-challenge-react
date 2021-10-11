@@ -9,7 +9,7 @@ const Rating = (props) => {
 
   return (
     <div className={classes.rating}>
-      <h3>Please rate your experience : </h3>
+      <h2>Please rate your experience : </h2>
       {[...Array(range)].map((item, i) => (
         <Button
           className={classes["rating__button"]}

@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import PrivateRoute from "./auth/PrivateRoute";
+import useAuth from "./auth/useAuth";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import NotFound from "./pages/not-found/NotFound";
@@ -8,6 +15,8 @@ import "antd/dist/antd.css";
 import classes from "./app.module.scss";
 
 const App = () => {
+  const auth = useAuth();
+
   const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
@@ -32,7 +41,7 @@ const App = () => {
 
   const sendMessage = (m) => {
     socket?.emit("message", {
-      author: "Client",
+      author: auth.user.username,
       message: m,
     });
     // if (m === 'Yes') socket.close()
@@ -42,16 +51,18 @@ const App = () => {
     socket?.emit("command");
   };
 
-  const authData = true //temporary
+  console.log(auth.user)
 
   return (
     <div className={classes.app}>
       <header className={classes["app__header"]}>
-        <span className={classes['app__header__title']}>Ottanova Challenge</span>
-        {authData && (
+        <span className={classes["app__header__title"]}>
+          Ottanova Challenge
+        </span>
+        {auth.user && (
           <span
-            className={classes["app__header--logout"]}
-            onClick={() => localStorage.removeItem("auth")}
+            className={classes["app__header__logout"]}
+            onClick={() => auth.logout(null)}
           >
             Logout
           </span>
@@ -59,21 +70,19 @@ const App = () => {
       </header>
       <Router>
         <Switch>
-          <Route path="/login" component={Login} />
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <Home
-                sendCommand={sendCommand}
-                sendMessage={sendMessage}
-                setMessage={setMessage}
-                command={command}
-                response={response}
-                message={message}
-              />
-            )}
-          />
+          <Route path="/login">
+            {!auth.user ? <Login /> : <Redirect to="/" />}
+          </Route>
+          <PrivateRoute exact path="/">
+            <Home
+              sendCommand={sendCommand}
+              sendMessage={sendMessage}
+              setMessage={setMessage}
+              command={command}
+              response={response}
+              message={message}
+            />
+          </PrivateRoute>
           <Route path="*" render={() => <NotFound />} />
         </Switch>
       </Router>
