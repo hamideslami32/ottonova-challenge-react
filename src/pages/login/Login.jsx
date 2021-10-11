@@ -1,7 +1,7 @@
 import LoginForm from '../../components/login-form/LoginForm'
 import classes from "./login.module.scss";
 
-function Login(props) {
+const Login = () => {
   return (
     <div className={classes.login}>
       <LoginForm />

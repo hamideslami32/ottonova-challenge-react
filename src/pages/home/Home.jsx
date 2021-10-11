@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import useAuth from "../../auth/useAuth";
 import { Input, Button, Divider } from "antd";
 import CompleteConfirm from "../../components/complete-confirm/CompleteConfirm";
 import Rating from "../../components/rating/Rating";
@@ -6,7 +8,85 @@ import Map from "../../components/map/Map";
 
 import classes from "./home.module.scss";
 
-function Home(props) {
+const Home = () => {
+  const auth = useAuth();
+
+  const [socket, setSocket] = useState(null);
+  const [message, setMessage] = useState("");
+  const [response, setResponse] = useState("");
+  const [command, setCommand] = useState({});
+
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  useEffect(() => {
+    const newSocket = io("https://demo-chat-server.on.ag/");
+    console.log({ newSocket });
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, []);
+
+  useEffect(() => {
+    const getData = () => {
+      socket?.on("message", (res) => setResponse(res.message));
+      socket?.on("command", (res) => {
+        setCommand(res.command);
+      });
+    };
+    getData();
+  }, [socket]);
+
+  const sendMessage = (m, option = true) => {
+    socket?.emit("message", {
+      author: auth.user.username,
+      message: m,
+    });
+    if (option) setSelectedOption(m);
+    else {
+      setCommand({});
+      setSelectedOption(null);
+    }
+  };
+
+  const reset = () => {
+    setSelectedOption(null);
+    setCommand({});
+    setMessage("");
+    setResponse("");
+  };
+
+  const sendCommand = () => {
+    reset();
+    socket?.emit("command");
+  };
+
+  const props = {
+    sendCommand,
+    sendMessage,
+    setMessage,
+    setSelectedOption,
+    command,
+    response,
+    message,
+  };
+
+  let widget = null;
+  if (command?.type) {
+    switch (command?.type) {
+      case "map":
+        widget = <Map {...props} />;
+        break;
+      case "rate":
+        widget = <Rating {...props} />;
+        break;
+      case "date":
+        widget = <DayPicker {...props} />;
+        break;
+      case "complete":
+        widget = <CompleteConfirm {...props} />;
+        break;
+    }
+  }
+
   return (
     <div className={classes.home}>
       {
@@ -18,15 +98,15 @@ function Home(props) {
             size="large"
             name="message"
             id="message"
-            value={props.message}
-            onChange={(e) => props.setMessage(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           />
           <Button
             className={classes["home__button"]}
             type="primary"
             size="large"
             onClick={() => {
-              props.sendMessage(props.message);
+              sendMessage(message, false);
             }}
           >
             Send Message
@@ -36,7 +116,7 @@ function Home(props) {
             type="primary"
             size="large"
             onClick={() => {
-              props.sendCommand();
+              sendCommand();
             }}
           >
             Random Command
@@ -44,24 +124,27 @@ function Home(props) {
           <h1>
             Message: <br />
             <span className={classes["home__command-type"]}>
-              {props.response && props.response}
+              {response && response}
             </span>
           </h1>
           <Divider />
           <h1>
             Command:{" "}
             <span className={classes["home__command-type"]}>
-              {props.command?.type}
+              {command?.type}
             </span>
           </h1>
-          {props.command?.type === "map" && <Map {...props} />}
-          {props.command?.type === "rate" && <Rating {...props} />}
-          {props.command?.type === "date" && <DayPicker {...props} />}
-          {props.command?.type === "complete" && <CompleteConfirm {...props} />}
+          {selectedOption ? (
+            <h1>
+              {auth.user.username}, {selectedOption}
+            </h1>
+          ) : (
+            widget
+          )}
         </>
       }
     </div>
   );
-}
+};
 
 export default Home;
