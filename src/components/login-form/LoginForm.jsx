@@ -12,11 +12,6 @@ import classes from "./login-form.module.scss";
 const LoginForm = () => {
   const history = useHistory();
 
-  const [alertType, setAlertType] = useState("info");
-  const [alertMessage, setAlertMessage] = useState(
-    "Remember your password. :)"
-  );
-
   const auth = useAuth();
 
   const initialLoginData = {
@@ -68,11 +63,6 @@ const LoginForm = () => {
         >
           Login
         </Button>
-        <Alert
-          className={classes["login__alert"]}
-          message="Remember your password. :)"
-          type="info"
-        />
       </form>
     </div>
   );
