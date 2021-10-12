@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import useAuth from "../../auth/useAuth";
-import { Button, Input, Alert } from "antd";
+import { Button, Input } from "antd";
 import {
   EyeInvisibleOutlined,
   EyeTwoTone,

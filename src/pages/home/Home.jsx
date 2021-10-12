@@ -9,7 +9,6 @@ import Map from "../../components/map/Map";
 import classes from "./home.module.scss";
 
 const Home = () => {
-
   const auth = useAuth();
 
   const [socket, setSocket] = useState(null);
@@ -18,7 +17,7 @@ const Home = () => {
   const [command, setCommand] = useState({});
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const widgetsShowed = []
+  const widgetsShowed = [];
 
   useEffect(() => {
     const newSocket = io("https://demo-chat-server.on.ag/");
@@ -31,13 +30,15 @@ const Home = () => {
     const getData = () => {
       socket?.on("message", (res) => setResponse(res.message));
       socket?.on("command", (res) => {
-        if(widgetsShowed.length === 4) {
-          setSelectedOption('You can see every widget only once. Maybe next time :)')
+        if (widgetsShowed.length === 4) {
+          setSelectedOption(
+            "You can see every widget only once. Maybe next time :)"
+          );
           return;
         }
-        if (widgetsShowed.includes(res.command.type)) sendCommand()
+        if (widgetsShowed.includes(res.command.type)) sendCommand();
         else {
-          widgetsShowed.push(res.command.type)
+          widgetsShowed.push(res.command.type);
           setCommand(res.command);
         }
       });
@@ -133,9 +134,7 @@ const Home = () => {
           </Button>
           <h1>
             Message: <br />
-            <span className={classes["home__command-type"]}>
-              {response}
-            </span>
+            <span className={classes["home__command-type"]}>{response}</span>
           </h1>
           <Divider />
           <h1>

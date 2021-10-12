@@ -1,4 +1,4 @@
-import LoginForm from '../../components/login-form/LoginForm'
+import LoginForm from "../../components/login-form/LoginForm";
 import classes from "./login.module.scss";
 
 const Login = () => {
@@ -7,6 +7,6 @@ const Login = () => {
       <LoginForm />
     </div>
   );
-}
+};
 
 export default Login;

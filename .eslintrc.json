@@ -1,0 +1,28 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended", "prettier"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier"],
+  "rules": {
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+
+    // disable rules from base configurations
+    "no-console": 1,
+    "prettier/prettier": "error",
+    "no-unused-vars": 2,
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off"
+  }
+}
