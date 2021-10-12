@@ -1,10 +1,14 @@
 # Ottonova JavaScript Coding Challenge
- This project was created by [Vite.js](https://vitejs.dev/) the **Next Generation Frontend Tooling**.
- is a build tool that aims to provide a faster and leaner development experience for modern web projects. It consists of two major parts:
 
--   A dev server that provides  [rich feature enhancements](https://vitejs.dev/guide/features.html)  over  [native ES modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules), for example extremely fast  [Hot Module Replacement (HMR)](https://vitejs.dev/guide/features.html#hot-module-replacement).
-    
--   A build command that bundles your code with  [Rollup](https://rollupjs.org/), pre-configured to output highly optimized static assets for production.
+The gist: Implement a web client for a https://socket.io chat server.
+Please implement the following:
+• A login screen, with username & password, which protects the chat client
+• A chat client which can:
+• Emit and receive message events as described below
+• Emit and receive command events as described below
+• Display widgets in response to server command events
+ 
+
 
 ## Contents
 
@@ -18,6 +22,17 @@ https://github.com/hamideslami32/ottonova-challenge-react
 ##
 
 ### Tech Stack:
+
+This project was created by [Vite.js](https://vitejs.dev/) the **Next Generation Frontend Tooling**.
+ is a build tool that aims to provide a faster and leaner development experience for modern web projects. It consists of two major parts:
+
+-   A dev server that provides  [rich feature enhancements](https://vitejs.dev/guide/features.html)  over  [native ES modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules), for example extremely fast  [Hot Module Replacement (HMR)](https://vitejs.dev/guide/features.html#hot-module-replacement).
+    
+-   A build command that bundles your code with  [Rollup](https://rollupjs.org/), pre-configured to output highly optimized static assets for production.
+
+##
+
+#### Javascript Framework for the frontend application
 
 The javascript framework that is used for the frontend of this project is **react**.  You can read more about it on [reactjs.org](https://reactjs.org/) website.
 
