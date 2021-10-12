@@ -1,16 +1,18 @@
 .login {
-  height: 350px;
+  height: 320px;
   width: 400px;
   box-shadow: 0 0 5px 1px #ccc;
   border-radius: 5px;
   padding: 20px;
+  display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
   h1 {
     font-weight: bold;
   }
 
   form {
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
